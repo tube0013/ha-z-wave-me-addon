@@ -13,7 +13,8 @@ declare device
 declare device_type
 if bashio::config.true 'device_type'; then
     bashio::log.info "Setting up socat connection"
-    "/usr/bin/socat" -d pty,raw,echo=0,link=/tmp/zway,ignoreeof "tcp:$(bashio::config 'network_device')"
+    exec "/usr/bin/socat" -d pty,raw,echo=0,link=/tmp/zway,ignoreeof \
+        "tcp:$(bashio::config 'network_device')"
     device="/tmp/zway"
 else
     device=$(bashio::config 'device')
