@@ -3,6 +3,12 @@ configuration:
   device:
     name: Device
     description: The serial port to which the Razberry card or the UZB-stick connected
+  network_device:
+    name: Network Device
+    description: The ip address and port of your network connected coordinator. IP_ADDRESS:PORT
+  device_type:
+    name: Use Network Device
+    description: Enable in order to set up socat to use network device
   configjson_device_replace:
     name: Force change port on "Z-Wave Network Access" application
     description: Forcibly overwrite the port in the "Z-Wave Network Access" application

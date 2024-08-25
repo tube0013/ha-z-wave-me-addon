@@ -13,8 +13,8 @@ host_dbus: true
 uart: true
 hassio_api: true
 
-url: https://github.com/z-wave-me/ha-z-wave-me-addon/  # Add-on repository URL
-image: "ghcr.io/z-wave-me/{arch}-ha-z-wave-me-addon"  # Docker image for the add-on
+url: https://github.com/tube0013/ha-z-wave-me-addon/  # Add-on repository URL
+image: "ghcr.io/tube0013/{arch}-ha-z-wave-me-addon"  # Docker image for the add-on
 ports:
   8083/tcp: 8083  # Main ports to forward
 ports_description:
@@ -24,6 +24,9 @@ webui: http://[HOST]:[PORT:8083]  # Add-on interface URL
 options:
   device: /dev/ttyAMA0  # Main device for connection
   additional_devices: ""  # Additional devices for connection
+  device_type: false
+  device_type: bool?
+  network_device: ""  # Network IP and port for Device
   configjson_device_replace: false  # Device configuration replacement
   remote_access: true  # Remote access to the add-on
   remote_support_access: false  # Remote support access
@@ -32,6 +35,7 @@ options:
 schema:
   device: device(subsystem=tty)  # Schema for the main device
   additional_devices: str  # Schema for additional devices
+  network_device: str # Schema for network device
   configjson_device_replace: bool?  # Schema for device configuration replacement
   remote_access: bool?  # Schema for remote access
   remote_support_access: bool?  # Schema for remote support access

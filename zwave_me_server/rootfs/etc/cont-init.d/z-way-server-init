@@ -7,9 +7,22 @@ defCJ=/opt/z-way-server/automation/defaultConfigs/config.json
 
 bashio::log.info "Checking and updating default config path..."
 
+# Set up network device if enabled
+
+declare device
+declare device_type
+if bashio::config.true 'device_type'; then
+    bashio::log.info "Setting up socat connection"
+    "/usr/bin/socat" -d -d -d UNIX-LISTEN:/tmp/zway,reuseaddr,fork TCP:$(bashio::config 'network_device')
+    device="/tmp/zway"
+else
+    device=$(bashio::config 'device')
+fi
+
+
 # Change device path in /defailtConfig/config.json
 if [ -f "$defCJ" ]; then
-    jq --arg device "$(bashio::config 'device')" '.instances[0].params.port = $device' $defCJ > $defCJ.tmp && mv $defCJ.tmp $defCJ
+    jq --arg device "${device}" '.instances[0].params.port = $device' $defCJ > $defCJ.tmp && mv $defCJ.tmp $defCJ
     bashio::log.info "Device path in default config updated."
 else
     bashio::log.warning "Default config not found."
@@ -71,10 +84,10 @@ if [ ! -z "$(ls -A $userCJPath)" ]; then
 
     # Get the value of configjson_device_replace option
     replaceOption=$(bashio::config 'configjson_device_replace')
-
+   
     # If force device selection is enabled (replaceOption is not empty)
     if [ -n "$replaceOption" ]; then
-        jq --arg device "$(bashio::config 'device')" '.instances[0].params.port = $device' $userCJPath > $userCJPath.tmp && mv $userCJPath.tmp $userCJPath
+        jq --arg device "${device}" '.instances[0].params.port = $device' $userCJPath > $userCJPath.tmp && mv $userCJPath.tmp $userCJPath
         bashio::log.info "Device path in user config updated."
 
         # Read and log the updated port value
