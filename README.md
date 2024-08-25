@@ -1,4 +1,4 @@
-# Z-Wave.Me add-on for Home Assistant
+# TubesZB Z-Wave.Me add-on for Home Assistant
 This add-on starts Z-Wave.Me Z-Way server in a supervised Home Assistant (HAOS), Home Assistant Yellow and Green.
 
 # Install Z-Way add-on
