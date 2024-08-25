@@ -1,5 +1,5 @@
 name: Z-Wave.Me Add-on
-version: v4.1.4.1
+version: v4.1.4.2
 slug: zwave_me_server
 description: 'Z-Wave.Me Z-Way add-on for Home Assistant'
 startup: services  # Determines when the add-on should start
@@ -25,7 +25,6 @@ options:
   device: /dev/ttyAMA0  # Main device for connection
   additional_devices: ""  # Additional devices for connection
   device_type: false
-  device_type: bool?
   network_device: ""  # Network IP and port for Device
   configjson_device_replace: false  # Device configuration replacement
   remote_access: true  # Remote access to the add-on
@@ -36,6 +35,7 @@ schema:
   device: device(subsystem=tty)  # Schema for the main device
   additional_devices: str  # Schema for additional devices
   network_device: str # Schema for network device
+  device_type: bool?
   configjson_device_replace: bool?  # Schema for device configuration replacement
   remote_access: bool?  # Schema for remote access
   remote_support_access: bool?  # Schema for remote support access
